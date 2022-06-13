@@ -30,7 +30,7 @@
                 <view class="box-bottom-view-center-view-title1">采样时间</view>
                 <view class="box-bottom-view-center-view-time1">{{firstTime}}</view>
             </view>
-            <view style="width: 5px; height: 40px; background: orange; margin-left: 32.5px;"></view>
+            <view style="width: 5px; height: 40px; background: #3DC15F; margin-left: 32.5px;"></view>
             <view style="display: flex; align-items: center;">
                 <view class="box-bottom-view-center-view-leftImage2"></view>
                 <view class="box-bottom-view-center-view-title2">到期时间</view>
@@ -40,10 +40,10 @@
 
         <view style="display: flex; justify-content: space-around; margin-top: 50px;">
             <picker mode="date" bindchange="onPickerDate">
-                <button style="border-radius: 20px;" type="primary">设置采样时间</button>
+                <button style="border-radius: 22.5px; height: 45px; display: flex; align-items: center; justify-content: center;" type="primary">设置时间</button>
         </picker>
-        <picker  mode="region">
-            <button style="border-radius: 20px;" type="primary">确定</button>
+        <picker mode="region">
+            <button style="border-radius: 22.5px; height: 45px; display: flex; align-items: center; justify-content: center;" type="primary">确定</button>
         </picker>
         </view>
     </view>

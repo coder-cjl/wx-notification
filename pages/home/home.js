@@ -6,10 +6,10 @@ Page({
      */
     data: {
         isSeletedTag: 0,
-        button1: "primary",
-        button2: "primary",
-        button3: "primary",
-        button4: "primary",
+        button1: "default",
+        button2: "default",
+        button3: "default",
+        button4: "default",
         firstTime: "",
         lastTime: ""
     },
@@ -17,41 +17,40 @@ Page({
     on24ButtonAction: function() {
         this.setData({
             isSeletedTag: 1,
-            button1: "warn",
-            button2: "primary",
-            button3: "primary",
-            button4: "primary"
+            button1: "primary",
+            button2: "default",
+            button3: "default",
+            button4: "default"
         })
     },
 
     on48ButtonAction: function() {
-        console.log("on48ButtonAction")
         this.setData({
             isSeletedTag: 2,
-            button1: "primary",
-            button2: "warn",
-            button3: "primary",
-            button4: "primary"
+            button1: "default",
+            button2: "primary",
+            button3: "default",
+            button4: "default"
         })
     },
 
     on72ButtonAction: function() {
         this.setData({
             isSeletedTag: 3,
-            button1: "primary",
-            button2: "primary",
-            button3: "warn",
-            button4: "primary"
+            button1: "default",
+            button2: "default",
+            button3: "primary",
+            button4: "default"
         })
     },
 
     on7dButtonAction: function() {
         this.setData({
             isSeletedTag: 4,
-            button1: "primary",
-            button2: "primary",
-            button3: "primary",
-            button4: "warn"
+            button1: "default",
+            button2: "default",
+            button3: "default",
+            button4: "primary"
         })
     },
 
@@ -79,7 +78,12 @@ Page({
      * 生命周期函数--监听页面显示
      */
     onShow() {
-
+        var nowDate = new Date();
+        var hour = nowDate.getHours();
+        var min = nowDate.getMinutes();
+        this.setData({
+            firstTime: nowDate.toLocaleDateString() + "  " + hour + ":" + min
+        })
     },
 
     /**
