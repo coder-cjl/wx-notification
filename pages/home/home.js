@@ -5,16 +5,22 @@ Page({
      * 页面的初始数据
      */
     data: {
-        isShow: false,
-        time: "08:30",
-        isSeleted: false,
-        isSeletedTag: 0
+        isSeletedTag: 0,
+        button1: "primary",
+        button2: "primary",
+        button3: "primary",
+        button4: "primary",
+        firstTime: "",
+        lastTime: ""
     },
 
     on24ButtonAction: function() {
-        console.log("on24ButtonAction")
         this.setData({
             isSeletedTag: 1,
+            button1: "warn",
+            button2: "primary",
+            button3: "primary",
+            button4: "primary"
         })
     },
 
@@ -22,33 +28,36 @@ Page({
         console.log("on48ButtonAction")
         this.setData({
             isSeletedTag: 2,
+            button1: "primary",
+            button2: "warn",
+            button3: "primary",
+            button4: "primary"
         })
     },
 
     on72ButtonAction: function() {
-        console.log("on72ButtonAction")
         this.setData({
             isSeletedTag: 3,
+            button1: "primary",
+            button2: "primary",
+            button3: "warn",
+            button4: "primary"
         })
     },
 
     on7dButtonAction: function() {
-        console.log("on7dButtonAction")
         this.setData({
             isSeletedTag: 4,
+            button1: "primary",
+            button2: "primary",
+            button3: "primary",
+            button4: "warn"
         })
     },
 
-    onTapButton: function() {
+    onPickerDate: function(date) {
         this.setData({
-            isShow: !this.data.isShow
-        }),
-        console.log(isShow)
-    },
-
-    onListenDatePicker: function(e) {
-        this.setData({
-            time: e.detail.value,
+            firstTime: date.detail.value
         })
     },
 

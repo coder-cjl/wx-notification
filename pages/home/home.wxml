@@ -15,10 +15,10 @@
         <view class="box-bottom-view-title">核酸间隔时间</view>
 
         <view class="box-box-bottom-view-button">
-            <button type="primary" class="box-box-bottom-view-button-24" size="mini" style="width: 22%; height: 40px; line-height: 40px;" bindtap="on24ButtonAction">24小时</button>
-            <button type="primary" class="box-box-bottom-view-button-48" size="mini" style="width: 22%; height: 40px; line-height: 40px;" bindtap="on48ButtonAction">48小时</button>
-            <button type="warn" class="box-box-bottom-view-button-72" size="mini" style="width: 22%; height: 40px; line-height: 40px;" bindtap="on72ButtonAction">72小时</button>
-            <button type="primary" class="box-box-bottom-view-button-7day" size="mini" style="width: 22%; height: 40px; line-height: 40px;" bindtap="on7dButtonAction">7天</button>
+            <button type="{{button1}}" class="box-box-bottom-view-button-24" size="mini" style="width: 22%; height: 40px; line-height: 40px;" bindtap="on24ButtonAction">24小时</button>
+            <button type="{{button2}}" class="box-box-bottom-view-button-48" size="mini" style="width: 22%; height: 40px; line-height: 40px;" bindtap="on48ButtonAction">48小时</button>
+            <button type="{{button3}}" class="box-box-bottom-view-button-72" size="mini" style="width: 22%; height: 40px; line-height: 40px;" bindtap="on72ButtonAction">72小时</button>
+            <button type="{{button4}}" class="box-box-bottom-view-button-7day" size="mini" style="width: 22%; height: 40px; line-height: 40px;" bindtap="on7dButtonAction">7天</button>
         </view>
 
         <view class="box-bottom-view-center-title">采样信息</view>
@@ -27,23 +27,23 @@
             <view style="height: 0.1px;"></view>
             <view class="box-bottom-view-center-view-item1">
                 <view class="box-bottom-view-center-view-leftImage1"></view>
-                <view class="box-bottom-view-center-view-title1">核酸采样时间</view>
-                <view class="box-bottom-view-center-view-time1">06/10 18:39</view>
+                <view class="box-bottom-view-center-view-title1">采样时间</view>
+                <view class="box-bottom-view-center-view-time1">{{firstTime}}</view>
             </view>
             <view style="width: 5px; height: 40px; background: orange; margin-left: 32.5px;"></view>
             <view style="display: flex; align-items: center;">
                 <view class="box-bottom-view-center-view-leftImage2"></view>
-                <view class="box-bottom-view-center-view-title2">核酸到期时间</view>
-                <view class="box-bottom-view-center-view-time2">06/10 18:39</view>
+                <view class="box-bottom-view-center-view-title2">到期时间</view>
+                <view class="box-bottom-view-center-view-time2">{{lastTime}}</view>
             </view>
         </view>
 
         <view style="display: flex; justify-content: space-around; margin-top: 50px;">
-            <picker mode="date">
-                <button style="border-radius: 20px;" type="primary" bindtap="onTapButton">手动选择时间</button>
+            <picker mode="date" bindchange="onPickerDate">
+                <button style="border-radius: 20px;" type="primary">设置采样时间</button>
         </picker>
         <picker  mode="region">
-            <button style="border-radius: 20px;" type="primary">更新核酸时间</button>
+            <button style="border-radius: 20px;" type="primary">确定</button>
         </picker>
         </view>
     </view>
