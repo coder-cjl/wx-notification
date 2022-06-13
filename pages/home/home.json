@@ -1,3 +1,4 @@
 {
-    "navigationBarTitleText": "闹钟提醒"
+    "navigationBarTitleText": "闹钟提醒",
+    "navigationStyle": "default"
 }
