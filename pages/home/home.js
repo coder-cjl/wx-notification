@@ -6,7 +6,37 @@ Page({
      */
     data: {
         isShow: false,
-        time: "08:30"
+        time: "08:30",
+        isSeleted: false,
+        isSeletedTag: 0
+    },
+
+    on24ButtonAction: function() {
+        console.log("on24ButtonAction")
+        this.setData({
+            isSeletedTag: 1,
+        })
+    },
+
+    on48ButtonAction: function() {
+        console.log("on48ButtonAction")
+        this.setData({
+            isSeletedTag: 2,
+        })
+    },
+
+    on72ButtonAction: function() {
+        console.log("on72ButtonAction")
+        this.setData({
+            isSeletedTag: 3,
+        })
+    },
+
+    on7dButtonAction: function() {
+        console.log("on7dButtonAction")
+        this.setData({
+            isSeletedTag: 4,
+        })
     },
 
     onTapButton: function() {

@@ -56,9 +56,9 @@
 }
 
 .box-bottom-view {
-    height: 100%;
+    /* height: 100% 0px; */
     width: 100%;
-    background: blue;
+    background: white;
     position: absolute;
     margin-top: 210px;
     border-top-right-radius: 40px;

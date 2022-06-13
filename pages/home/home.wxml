@@ -15,10 +15,10 @@
         <view class="box-bottom-view-title">核酸间隔时间</view>
 
         <view class="box-box-bottom-view-button">
-            <button class="box-box-bottom-view-button-24" size="mini" style="width: 22%; height: 40px; line-height: 40px;">24小时</button>
-            <button class="box-box-bottom-view-button-48" size="mini" style="width: 22%; height: 40px; line-height: 40px;">48小时</button>
-            <button class="box-box-bottom-view-button-72" size="mini" style="width: 22%; height: 40px; line-height: 40px;">72小时</button>
-            <button class="box-box-bottom-view-button-7day" size="mini" style="width: 22%; height: 40px; line-height: 40px;">7天</button>
+            <button type="primary" class="box-box-bottom-view-button-24" size="mini" style="width: 22%; height: 40px; line-height: 40px;" bindtap="on24ButtonAction">24小时</button>
+            <button type="primary" class="box-box-bottom-view-button-48" size="mini" style="width: 22%; height: 40px; line-height: 40px;" bindtap="on48ButtonAction">48小时</button>
+            <button type="warn" class="box-box-bottom-view-button-72" size="mini" style="width: 22%; height: 40px; line-height: 40px;" bindtap="on72ButtonAction">72小时</button>
+            <button type="primary" class="box-box-bottom-view-button-7day" size="mini" style="width: 22%; height: 40px; line-height: 40px;" bindtap="on7dButtonAction">7天</button>
         </view>
 
         <view class="box-bottom-view-center-title">采样信息</view>
