@@ -11,7 +11,9 @@ Page({
         button3: "default",
         button4: "default",
         firstTime: "",
-        lastTime: ""
+        lastTime: "",
+        test_value: [],
+        test_range: []
     },
 
     on24ButtonAction: function() {
@@ -54,9 +56,84 @@ Page({
         })
     },
 
-    onPickerDate: function(date) {
+    onPickerChange: function(e) {
+        let year = this.getYears()[e.detail.value[0]];
+        let month = this.getMonths()[e.detail.value[1]];
+        console.log(e.detail.value);
+        let day = this.getMonthDays(year, month)[e.detail.value[2]];
+        let hour = this.getHours()[e.detail.value[3]];
+        let minute = this.getMinutes()[e.detail.value[4]];
+        let time = year + "/" + month + "/" + day + '\xa0\xa0\xa0\xa0' + hour + ":" + minute
         this.setData({
-            firstTime: date.detail.value
+            firstTime: time
+        })
+        this.updatePickerDate(true, year, month - 1, day - 1, hour, minute);
+    },
+
+    onBindColumnChange: function(e) {
+        if (e.detail.column == 0) {
+            let year = this.getYears()[e.detail.value];
+            this.updatePickerDate(false ,year, 1, 1, 0, 0);
+        } else if (e.detail.column == 1) {
+            let month = this.getMonths()[e.detail.value];
+            console.log(month);
+            this.updatePickerDate(true, 2022, month, 1, 0, 0);
+        }
+    },
+
+    getYears: function() {
+        return [2022];
+    },
+
+    getMonths: function() {
+        return [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+    },
+
+    getMonthDays: function(year, month) {
+        var feb = 28;
+        if ((year % 400 == 0) || (year % 4 == 0) && (year % 100 != 0)) {
+            feb = 29;
+        }
+        let month_days = [31, feb, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+        let day = month_days[month];
+        var days = [];
+        for (let i = 1; i < day + 1; i++) {
+            days.push(i);
+        }
+        return days;
+    },
+
+    getHours: function() {
+        var hours = [];
+        for (let i = 0; i < 24; i++) {
+            hours.push(i);
+        }
+        return hours;
+    },
+
+    getMinutes: function() {
+        var minutes = [];
+        for (let i = 0; i < 60; i++) {
+            minutes.push(i);
+        }
+        return minutes;
+    },
+
+    updatePickerDate: function(first, year, month, day, hour, minute) {
+        let years = this.getYears();
+        let months = this.getMonths();
+        let days = this.getMonthDays(year, month);
+        let hours = this.getHours();
+        let minutes = this.getMinutes();
+        let yearsStr = years.map(e => e + "年");
+        let monthsStr = months.map(e => e + "月");
+        let daysStr = days.map(e => e + "日");
+        let hoursStr = hours.map(e => e + "时");
+        let minutesStr = minutes.map(e => e  + "分");
+        console.log(day);
+        this.setData({
+            test_range: [yearsStr, monthsStr, daysStr, hoursStr, minutesStr],
+            test_value: first ? [year, month, day, hour, minute] : []
         })
     },
 
@@ -64,7 +141,13 @@ Page({
      * 生命周期函数--监听页面加载
      */
     onLoad(options) {
-
+        var nowDate = new Date();
+        let year = nowDate.getFullYear();
+        let month = nowDate.getMonth();
+        let day = nowDate.getDate() - 1;
+        let hour = nowDate.getHours();
+        let minute = nowDate.getMinutes();
+        this.updatePickerDate(true, year, month, day, hour, minute);
     },
 
     /**
@@ -78,12 +161,7 @@ Page({
      * 生命周期函数--监听页面显示
      */
     onShow() {
-        var nowDate = new Date();
-        var hour = nowDate.getHours();
-        var min = nowDate.getMinutes();
-        this.setData({
-            firstTime: nowDate.toLocaleDateString() + "  " + hour + ":" + min
-        })
+
     },
 
     /**

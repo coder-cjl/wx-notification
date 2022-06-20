@@ -6,7 +6,7 @@
 
 .box-top-view {
     display: flex;
-    height: 250px;
+    height: 350px;
     width: 100%;
     background: #DEF0FD;
     position: absolute;
@@ -15,7 +15,7 @@
 }
 
 .box-top-view-center {
-    margin-top: 25px;
+    margin-top: 115px;
     width: 150px;
     height: 150px;
     background: orange;
@@ -60,7 +60,7 @@
     width: 100%;
     background: white;
     position: absolute;
-    margin-top: 210px;
+    margin-top: 310px;
     border-top-right-radius: 40px;
     border-top-left-radius: 40px;
 }
