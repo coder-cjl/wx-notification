@@ -59,7 +59,6 @@ Page({
     onPickerChange: function(e) {
         let year = this.getYears()[e.detail.value[0]];
         let month = this.getMonths()[e.detail.value[1]];
-        console.log(e.detail.value);
         let day = this.getMonthDays(year, month)[e.detail.value[2]];
         let hour = this.getHours()[e.detail.value[3]];
         let minute = this.getMinutes()[e.detail.value[4]];
@@ -67,17 +66,17 @@ Page({
         this.setData({
             firstTime: time
         })
-        this.updatePickerDate(true, year, month - 1, day - 1, hour, minute);
+        this.updatePickerDate(true, year, month, day, hour, minute);
     },
 
     onBindColumnChange: function(e) {
+        var nowDate = new Date();
         if (e.detail.column == 0) {
             let year = this.getYears()[e.detail.value];
-            this.updatePickerDate(false ,year, 1, 1, 0, 0);
+            this.updatePickerDate(true ,year, 1, 1, nowDate.getHours(), nowDate.getMinutes());
         } else if (e.detail.column == 1) {
             let month = this.getMonths()[e.detail.value];
-            console.log(month);
-            this.updatePickerDate(true, 2022, month, 1, 0, 0);
+            this.updatePickerDate(true, 2022, month, 1, nowDate.getHours(), nowDate.getMinutes());
         }
     },
 
@@ -95,7 +94,7 @@ Page({
             feb = 29;
         }
         let month_days = [31, feb, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-        let day = month_days[month];
+        let day = month_days[month - 1];
         var days = [];
         for (let i = 1; i < day + 1; i++) {
             days.push(i);
@@ -130,10 +129,9 @@ Page({
         let daysStr = days.map(e => e + "日");
         let hoursStr = hours.map(e => e + "时");
         let minutesStr = minutes.map(e => e  + "分");
-        console.log(day);
         this.setData({
             test_range: [yearsStr, monthsStr, daysStr, hoursStr, minutesStr],
-            test_value: first ? [year, month, day, hour, minute] : []
+            test_value: first ? [year, month - 1, day - 1, hour, minute] : []
         })
     },
 
@@ -143,7 +141,7 @@ Page({
     onLoad(options) {
         var nowDate = new Date();
         let year = nowDate.getFullYear();
-        let month = nowDate.getMonth();
+        let month = this.getMonths()[nowDate.getMonth()];
         let day = nowDate.getDate() - 1;
         let hour = nowDate.getHours();
         let minute = nowDate.getMinutes();
