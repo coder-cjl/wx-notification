@@ -13,7 +13,8 @@ Page({
         firstTime: "",
         lastTime: "",
         test_value: [],
-        test_range: []
+        test_range: [],
+        hour: ""
     },
 
     on24ButtonAction: function() {
@@ -23,7 +24,8 @@ Page({
             button2: "default",
             button3: "default",
             button4: "default"
-        })
+        });
+        this.calculateEndTime();
     },
 
     on48ButtonAction: function() {
@@ -33,7 +35,8 @@ Page({
             button2: "primary",
             button3: "default",
             button4: "default"
-        })
+        });
+        this.calculateEndTime();
     },
 
     on72ButtonAction: function() {
@@ -43,7 +46,8 @@ Page({
             button2: "default",
             button3: "primary",
             button4: "default"
-        })
+        });
+        this.calculateEndTime();
     },
 
     on7dButtonAction: function() {
@@ -54,19 +58,86 @@ Page({
             button3: "default",
             button4: "primary"
         })
+        this.calculateEndTime();
     },
 
     onPickerChange: function(e) {
         let year = this.getYears()[e.detail.value[0]];
-        let month = this.getMonths()[e.detail.value[1]];
-        let day = this.getMonthDays(year, month)[e.detail.value[2]];
-        let hour = this.getHours()[e.detail.value[3]];
-        let minute = this.getMinutes()[e.detail.value[4]];
-        let time = year + "/" + month + "/" + day + '\xa0\xa0\xa0\xa0' + hour + ":" + minute
+        var month = this.getMonths()[e.detail.value[1]];
+        if (month < 10) {
+            month = "0" + month;
+        }
+        var day = this.getMonthDays(year, month)[e.detail.value[2]];
+        if (day < 10) {
+            day = "0" + day;
+        }
+        var hour = this.getHours()[e.detail.value[3]];
+        if (hour < 10) {
+            hour = "0" + hour;
+        }
+        var minute = this.getMinutes()[e.detail.value[4]];
+        if (minute < 10) {
+            minute = "0" + minute;
+        }
+        let time = year + "-" + month + "-" + day + ' ' + hour + ":" + minute
         this.setData({
             firstTime: time
         })
         this.updatePickerDate(true, year, month, day, hour, minute);
+        this.calculateEndTime();
+    },
+
+    calculateEndTime: function() {
+        if (this.data.firstTime != null && this.data.firstTime != "" && this.data.isSeletedTag != 0) {
+            var date = new Date(this.data.firstTime);
+            var timestamp = Date.parse(date);
+            var future = 0;
+            if (this.data.isSeletedTag == 1) {
+                future = timestamp + 1000 * 60 * 60 * 24 * 1;
+            } else if (this.data.isSeletedTag == 2) {
+                future = timestamp + 1000 * 60 * 60 * 24 * 2;
+            } else if (this.data.isSeletedTag == 3) {
+                future = timestamp + 1000 * 60 * 60 * 24 * 3;
+            } else {
+                future = timestamp + 1000 * 60 * 60 * 24 * 7;
+            }
+            let futureDate = new Date(future);
+            var year = futureDate.getFullYear();
+            var month = futureDate.getMonth() + 1;
+            if (month < 10) {
+                month = "0" + month;
+            }
+            var day = futureDate.getDate();
+            if (day < 10) {
+                day = "0" + day;
+            }
+            var hour = futureDate.getHours();
+            if (hour < 10) {
+                hour = "0" + hour;
+            }
+            var minute = futureDate.getMinutes();
+            if (minute < 10) {
+                minute = "0" + minute;
+            }
+            let time = year + "-" + month + "-" + day + ' ' + hour + ":" + minute;
+
+            let nowDate = new Date()
+            var intervalHour = ""
+            if (Date.parse(nowDate) >= future) {
+                intervalHour = "0"
+            } else {
+                let interval = future - Date.parse(nowDate) 
+                intervalHour = interval / (1000 * 60 * 60)
+                intervalHour = Math.floor(intervalHour);
+            }
+
+            this.setData({
+                lastTime: time,
+                hour: intervalHour
+            })
+        } else {
+            console.log("采样时间没有设定");
+        }
     },
 
     onBindColumnChange: function(e) {
@@ -78,6 +149,12 @@ Page({
             let month = this.getMonths()[e.detail.value];
             this.updatePickerDate(true, 2022, month, 1, nowDate.getHours(), nowDate.getMinutes());
         }
+    },
+
+    onSure: function() {
+        wx.setStorageSync('firstTime', this.data.firstTime);
+        wx.setStorageSync('lastTime', this.data.lastTime);
+        wx.setStorageSync('indx', this.data.isSeletedTag);
     },
 
     getYears: function() {
@@ -142,10 +219,57 @@ Page({
         var nowDate = new Date();
         let year = nowDate.getFullYear();
         let month = this.getMonths()[nowDate.getMonth()];
-        let day = nowDate.getDate() - 1;
+        let day = nowDate.getDate();
         let hour = nowDate.getHours();
         let minute = nowDate.getMinutes();
         this.updatePickerDate(true, year, month, day, hour, minute);
+
+        let firstTime = wx.getStorageSync('firstTime');
+        if (firstTime != null && firstTime != "") {
+            this.setData({
+                firstTime: firstTime
+            })
+        }
+        let lastTime = wx.getStorageSync('lastTime');
+        if (lastTime != null && lastTime != "") {
+            let nowDate = new Date()
+            let lastDate = new Date(lastTime)
+            var intervalHour = ""
+            if (Date.parse(nowDate) >= Date.parse(lastTime)) {
+                intervalHour = "0"
+            } else {
+                let interval = Date.parse(lastDate) - Date.parse(nowDate) 
+                intervalHour = interval / (1000 * 60 * 60)
+                intervalHour = Math.floor(intervalHour);
+            }
+            this.setData({
+                lastTime: lastTime,
+                hour: intervalHour
+            })
+        }
+        let currentIndex = wx.getStorageSync("indx");
+        if (currentIndex != 0 && currentIndex != null) {
+            var button1 = "default"
+            var button2 = "default"
+            var button3 = "default"
+            var button4 = "default"
+            if (currentIndex == 1) {
+                button1 = "primary"
+            } else if (currentIndex == 2) {
+                 button2 = "primary"
+            } else if (currentIndex == 3) {
+                button3 = "primary"
+            } else {
+                button4 = "primary"
+            }
+            this.setData({
+                isSeletedTag: currentIndex,
+                button1: button1,
+                button2: button2,
+                button3: button3,
+                button4: button4
+            })
+        }
     },
 
     /**

@@ -4,7 +4,7 @@
         <view class="box-top-view-center">
             <view class="box-bottom-view-center-textView">
                 <view class="box-bottom-view-center-textView-title1">要做核酸了：</view>
-                <view class="box-bottom-view-center-textView-title2">18</view>
+                <view class="box-bottom-view-center-textView-title2">{{hour}}</view>
                 <view class="box-bottom-view-center-textView-title3">小时</view>
             </view>
             <!-- <rich-text class="box-top-view-center-title">要做核酸了：18小时</rich-text> -->
@@ -39,15 +39,12 @@
         </view>
 
         <view style="display: flex; justify-content: space-around; margin-top: 50px;">
-            <!-- <picker mode="date" bindchange="onPickerDate">
-                <button style="border-radius: 22.5px; height: 45px; display: flex; align-items: center; justify-content: center;" type="primary">设置时间</button>
-            </picker> -->
             <picker mode="multiSelector" value="{{test_value}}" range="{{test_range}}" bindchange="onPickerChange" bindcolumnchange="onBindColumnChange">
                 <button style="border-radius: 22.5px; height: 45px; display: flex; align-items: center; justify-content: center;" type="primary">设置时间</button>
             </picker>
-            <picker mode="region">
-                <button style="border-radius: 22.5px; height: 45px; display: flex; align-items: center; justify-content: center;" type="primary">确定</button>
-            </picker>
+            <view>
+                <button style="border-radius: 22.5px; height: 45px; display: flex; align-items: center; justify-content: center;" type="primary" bindtap="onSure">确定时间</button>
+            </view>
         </view>
     </view>
 
